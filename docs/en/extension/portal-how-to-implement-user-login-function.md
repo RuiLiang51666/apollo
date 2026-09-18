@@ -394,6 +394,21 @@ spring:
 
 ```
 
+#### 1.4 User Identity Configuration
+
+By default, Apollo uses the `sub` claim of the Token as the user identity. You can specify another Claim as the Apollo username via the configuration item `spring.security.oidc.user-id-claim-name`.
+
+> **Note:** If this configuration item is set, the Token must contain this Claim; otherwise, login will be rejected (it will not fall back to `sub`) to ensure user identity consistency across OIDC and JWT login paths.
+
+Configuration example:
+
+```yml
+spring:
+  security:
+    oidc:
+      user-id-claim-name: "preferred_username"
+```
+
 ### 2. Configure `startup.sh`
 
 Modify ``scripts/startup.sh`` to specify ``spring.profiles.active`` as ``github,oidc``.
