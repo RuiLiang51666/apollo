@@ -389,6 +389,21 @@ spring:
 
 ```
 
+#### 1.4 用户身份标识配置
+
+默认情况下，Apollo 使用 Token 的 `sub` claim 作为用户身份标识。可以通过配置项 `spring.security.oidc.user-id-claim-name` 指定其他 Claim 作为 Apollo 用户名。
+
+> **注意：** 若配置了该配置项，Token 中必须包含该 Claim，否则将拒绝登录（不会回退到 `sub`），以确保 OIDC 和 JWT 登录路径下用户身份的一致性。
+
+配置示例：
+
+```yml
+spring:
+  security:
+    oidc:
+      user-id-claim-name: "preferred_username"
+```
+
 ### 2. 配置 `startup.sh`
 
 修改`scripts/startup.sh`，指定`spring.profiles.active`为`github,oidc`。
